@@ -288,3 +288,42 @@
 .details-combat div h3 {
   color: #fff;
 }
+
+.buttons-page{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.button-page{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  transition: transform 0.1s ease-out;
+}
+
+.button-page:hover {
+  transform: translate(0, -5px);
+}
+
+.button-back{
+  display: inline-block;
+  position: absolute;
+  top: 50px;
+  left: 50px;
+  color: #00d4ff;
+  padding: 20px;
+  background-color: #2a324b;
+  border-radius: 100%;
+  font-size: 30px;
+  transition: transform 0.1 ease-out;
+  cursor: pointer;
+}
+
+.button-back:hover{
+  transform: scale(1.1);
+}

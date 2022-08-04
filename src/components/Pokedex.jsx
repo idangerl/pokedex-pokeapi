@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import CharacterItem from "./CharacterItem";
 import images from "../assets/img/images";
+import { FcNext, FcPrevious } from "react-icons/fc";
 
 const Pokedex = () => {
   const trainerName = useSelector((state) => state.trainerName);
@@ -11,10 +12,11 @@ const Pokedex = () => {
   const [inputCharacter, setInputCharacter] = useState("");
   const [typeItem, setTypeItem] = useState([]);
   const navigate = useNavigate();
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     axios
-      .get("https://pokeapi.co/api/v2/pokemon/")
+      .get("https://pokeapi.co/api/v2/pokemon/?limit=1154&offset=0")
       .then((res) => setCharacters(res.data.results));
 
     axios
@@ -29,7 +31,14 @@ const Pokedex = () => {
 
   const filterType = (e) => {
     axios.get(e.target.value).then((res) => setCharacters(res.data.pokemon));
+    setPage(1);
   };
+
+  const numberPokemons = 16;
+  const lastIndex = page * numberPokemons;
+  const firstIndex = lastIndex - numberPokemons;
+  const pokemonPaginated = characters.slice(firstIndex, lastIndex);
+  const lastPage = Math.ceil(characters.length / numberPokemons);
 
   return (
     <div className="pokedex-div">
@@ -63,9 +72,10 @@ const Pokedex = () => {
           </select>
         </div>
       </div>
+
       <div className="ul-div">
         <ul className="pokedex-list">
-          {characters?.map((character) => (
+          {pokemonPaginated?.map((character) => (
             <CharacterItem
               characterURL={
                 character.url ? character.url : character.pokemon.url
@@ -74,6 +84,14 @@ const Pokedex = () => {
             />
           ))}
         </ul>
+      <div className="buttons-page">
+        <button onClick={() => setPage(page - 1)} disabled={page === 1} className='button-page'>
+          <FcPrevious/>previus page
+        </button>
+        <button onClick={() => setPage(page + 1)} disabled={page === lastPage} className='button-page'>
+        next page<FcNext/>
+        </button>
+      </div>
       </div>
     </div>
   );

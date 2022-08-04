@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { FaBackward } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const CharacterDetail = () => {
   const [itemDetails, setItemDetails] = useState({});
 
   const { id } = useParams();
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios
@@ -15,6 +19,9 @@ const CharacterDetail = () => {
 
   return (
     <div className="details-container">
+      <button className="button-back" onClick={()=>navigate('/pokedex')}>
+    <FaBackward/>
+      </button>
     <div className="character-details">
       <div>
         <h1>
@@ -29,10 +36,10 @@ const CharacterDetail = () => {
       <div className="details-general">
       <div className="details-stats">
         <div>
-          <h3><b>Height: </b><span>0.{itemDetails.height} m</span></h3>
+          <h3><b>Height: </b><span>{itemDetails.height}</span></h3>
         </div>
         <div>
-          <h3><b>Weight: </b><span>{itemDetails.weight}00 g</span></h3>
+          <h3><b>Weight: </b><span>{itemDetails.weight}</span></h3>
         </div>
         <div>
           <h3><b>Type: </b><br /><span>{itemDetails.types?.[0]?.type.name} {itemDetails.types?.[1]?.type.name}</span></h3>

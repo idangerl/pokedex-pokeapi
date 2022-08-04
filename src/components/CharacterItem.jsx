@@ -10,7 +10,6 @@ const CharacterItem = ({ characterURL }) => {
     axios.get(characterURL).then((res) => setCharacter(res.data));
   }, []);
 
-console.log(character)
   return (
     <div className='character-item'>
       <div className="pokemon-img-div"><img src={character.sprites?.other["official-artwork"].front_default} alt="" className="pokemon-img" onClick={() => navigate(`/pokedex/${character.id}`)}/></div>
